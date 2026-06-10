@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
   const cloudUri = process.env.MONGODB_URI;
   const localUri = 'mongodb://localhost:27017/smartcredit';
 
