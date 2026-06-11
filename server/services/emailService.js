@@ -19,7 +19,10 @@ const createTransporter = () => {
     tls: {
       // Prevents SSL handshake failures common on local home/office networks
       rejectUnauthorized: false
-    }
+    },
+    connectionTimeout: 5000, // 5 seconds timeout
+    greetingTimeout: 5000,
+    socketTimeout: 5000
   });
 };
 
