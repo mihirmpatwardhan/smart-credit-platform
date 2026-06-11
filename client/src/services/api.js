@@ -1,7 +1,15 @@
 import axios from 'axios';
 
+const isLocalhost = Boolean(
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '[::1]' ||
+  window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+);
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://smart-credit-platform.onrender.com/api',
+  baseURL: isLocalhost 
+    ? 'http://localhost:5000/api' 
+    : 'https://smart-credit-platform.onrender.com/api',
 });
 
 // Add a request interceptor to attach token
