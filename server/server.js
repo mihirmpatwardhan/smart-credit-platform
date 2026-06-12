@@ -12,7 +12,10 @@ const documentRoutes = require('./routes/document');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 app.use(express.json({ limit: '10mb' })); // Increased for base64 image uploads
 
 // Routes
@@ -21,6 +24,11 @@ app.use('/api/applications', applicationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/documents', documentRoutes);
+
+// Health Check Route for Render Cold Start
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Smart Credit Platform API is active.' });
+});
 
 // Test Route
 app.get('/', (req, res) => {

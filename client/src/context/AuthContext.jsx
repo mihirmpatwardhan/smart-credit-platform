@@ -8,6 +8,9 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Background ping to wake up Render server (cold start mitigation)
+    api.get('/health').catch(() => {});
+
     const checkLoggedIn = async () => {
       const token = localStorage.getItem('token');
       if (token) {

@@ -8,6 +8,9 @@ const connectDB = async () => {
   const localUri = 'mongodb://localhost:27017/smartcredit';
 
   try {
+    if (!cloudUri) {
+      throw new Error('MONGODB_URI environment variable is not defined.');
+    }
     console.log('Connecting to Cloud MongoDB Atlas...');
     // Set a short timeout for cloud connection so it falls back quickly if blocked
     await mongoose.connect(cloudUri, {
